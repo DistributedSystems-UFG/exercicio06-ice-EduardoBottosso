@@ -17,8 +17,8 @@ public class Client {
             }
 
             // 4. Call the remote method
-            String response = printer.printString("Hello from Goiania!");
-            System.out.println("Server responded: " + response);
+            printer.printString("Hello from Goiania!");
+            printer.printUpperText("Hello from Goiania!");
 
         } catch (LocalException e) {
             e.printStackTrace();
