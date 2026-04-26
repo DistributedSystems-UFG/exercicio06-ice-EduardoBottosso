@@ -2,23 +2,29 @@ import com.zeroc.Ice.*;
 
 public class Client {
     public static void main(String[] args) {
-        // 1. Initialize the Ice communicator within a try-with-resources block
         try (Communicator communicator = Util.initialize(args)) {
 
-            // 2. Create a proxy to the remote 'Printer' object
-            // Replace '10.0.0.5' with the actual IP of your ICE server
-            ObjectPrx base = communicator.stringToProxy("SimplePrinter1:tcp -h 172.31.83.218 -p 11000");
+            ObjectPrx base1 = communicator.stringToProxy(
+                "SimplePrinter1:tcp -h 172.31.83.218 -p 11000"
+            );
+            ObjectPrx base2 = communicator.stringToProxy(
+                "SimplePrinter2:tcp -h 172.31.83.218 -p 11000"
+            );
 
-            // 3. Downcast the proxy to the Printer interface
-            Demo.PrinterPrx printer = Demo.PrinterPrx.checkedCast(base);
+            Demo.PrinterPrx printer1 = Demo.PrinterPrx.checkedCast(base1);
+            Demo.PrinterPrx printer2 = Demo.PrinterPrx.checkedCast(base2);
 
-            if (printer == null) {
+            if (printer1 == null || printer2 == null) {
                 throw new Error("Invalid proxy");
             }
 
-            // 4. Call the remote method
-            printer.printString("Hello from Goiania!");
-            printer.printUpperText("Hello from Goiania!");
+            System.out.println("Chamando métodos do objeto servidor 1...");
+            printer1.printString("Hello from Goiania to object 1!");
+            printer1.printUpperText("Hello from Goiania to object 1!");
+
+            System.out.println("Chamando métodos do objeto servidor 2...");
+            printer2.printString("Hello from Goiania to object 2!");
+            printer2.printUpperText("Hello from Goiania to object 2!");
 
         } catch (LocalException e) {
             e.printStackTrace();
