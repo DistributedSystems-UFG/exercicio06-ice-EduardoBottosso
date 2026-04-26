@@ -7,7 +7,7 @@ public class Client {
 
             // 2. Create a proxy to the remote 'Printer' object
             // Replace '10.0.0.5' with the actual IP of your ICE server
-            ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -h 54.234.163.189 -p 5678");
+            ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -h 54.234.163.189 -p 11000");
 
             // 3. Downcast the proxy to the Printer interface
             Demo.PrinterPrx printer = Demo.PrinterPrx.checkedCast(base);
